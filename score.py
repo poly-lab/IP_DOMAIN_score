@@ -24,11 +24,11 @@ def read_key(key_path):
     for line in lines:
         pass
 
-def insert_db(result):
+def insert_db(source,result):
     db = MySQLdb.connect(host='localhost', db='ip_domain', user='root', passwd='polydata', port=3306,
                          charset='utf8')
     cursor = db.cursor() 
-    insert_sql='insert '
+    insert_sql="insert into domain(domain,result) VALUES ('{0}','{1}')".format(source,result)
      
 def control():
     pass
