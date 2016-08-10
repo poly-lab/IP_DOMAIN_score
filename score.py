@@ -15,31 +15,43 @@ def ip_score(ip,apikey):
     response = urllib.urlopen('%s?%s' % (url, urllib.urlencode(parameters))).read()
     response_dict = json.loads(response)
     print response_dict
+    
 def read_source(source_path):
     sources=open(source_path).readlines()
-    print len(sources)
+    return len(sources),sources
+
 def read_key(key_path):
     lines=open(key_path,"r").readlines()
-    print len(lines)
-    for line in lines:
-        pass
+    
+    return len(lines),lines
 
 def insert_db(source,result):
     db = MySQLdb.connect(host='localhost', db='ip_domain', user='root', passwd='polydata', port=3306,
                          charset='utf8')
     cursor = db.cursor() 
     insert_sql="insert into domain(domain,result) VALUES ('{0}','{1}')".format(source,result)
+    cursor.execute(insert_md5)
+    db.commit()
+    cursor.close()
+    db.close()    
      
 def control():
-    pass
+    keynum,keys=read_key(key_path)
+    sourcesnum,sources=read_source(source_path)
+    md5num=n%(keynum*4)
+    foallkey=allkey*4
+    starttime=time.time()
+    parse(vt.getReport(allmd5[n],foallkey[md5num]),allmd5[n])
+    cell=time.time()-starttime
+
+    if int(cell) <=60:
+        time.sleep(60-int(cell))
+
 if __name__=="__main__":
     key_path=os.path.join("key","key")
     source_path=os.path.join("source","ip.txt")
-    domain='ozgkraa.net'
-    apikey='f938cb8607a8d497a789c47c8ad9fda85d92ad2c8bc1cc37b0d0a45cf408e4e2'
-    ip='213.159.214.106'
-    read_key(key_path)
-    read_source(source_path)
+    
+    
     #domain_score(domain, apikey)
     #ip_score(ip, apikey)
     
