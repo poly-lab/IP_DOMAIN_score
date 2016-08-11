@@ -39,9 +39,9 @@ def control():
     keynum,keys=read_key(key_path)
     sourcesnum,sources=read_source(source_path)
     md5num=n%(keynum*4)
-    foallkey=allkey*4
+    foallkey=keys*4
     starttime=time.time()
-    parse(vt.getReport(allmd5[n],foallkey[md5num]),allmd5[n])
+    parse(vt.getReport(sources[n],foallkey[md5num]),sources[n])
     cell=time.time()-starttime
 
     if int(cell) <=60:
